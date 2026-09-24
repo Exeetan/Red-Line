@@ -3,6 +3,7 @@ using UnityEngine;
 public class monster : MonoBehaviour
 {
     float t = 0;
+    
     [SerializeField] private GameObject[] attacks;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
