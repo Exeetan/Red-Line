@@ -6,6 +6,8 @@ TagManager:
   tags:
   - dialogue
   - dynamite
+  - hit
+  - explosion
   layers:
   - Default
   - TransparentFX

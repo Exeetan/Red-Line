@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 699278016}
   - component: {fileID: 699278018}
   m_Layer: 0
-  m_Name: monster_0
+  m_Name: monster
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -184,7 +184,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -5
+  m_SortingOrder: -20
   m_MaskInteraction: 0
   m_Sprite: {fileID: 4644523113532460279, guid: 84ff4689d8f8e7e4392f3412c941543b, type: 3}
   m_Color: {r: 1, g: 0, b: 0.6744844, a: 1}
@@ -206,7 +206,7 @@ Transform:
   m_GameObject: {fileID: 699278015}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.48, y: 3.96, z: 0}
+  m_LocalPosition: {x: -0.05, y: 3.96, z: 0}
   m_LocalScale: {x: 7, y: 7, z: 7}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -330,6 +330,7 @@ GameObject:
   - component: {fileID: 1138642124}
   - component: {fileID: 1138642123}
   - component: {fileID: 1138642122}
+  - component: {fileID: 1138642125}
   m_Layer: 0
   m_Name: Camera
   m_TagString: MainCamera
@@ -411,6 +412,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1138642125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1138642121}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6278a9d7dbb2cb64f87a3fd41891f686, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
 --- !u!1 &1243118863
 GameObject:
   m_ObjectHideFlags: 0
@@ -567,7 +580,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -10
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0, g: 0.7300217, b: 1, a: 1}
@@ -726,6 +739,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf0ab588a18413e4abe26221bf75ec4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::movement
+  m: {fileID: 699278018}
 --- !u!50 &1634907984
 Rigidbody2D:
   serializedVersion: 5
@@ -752,7 +766,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &1634907985
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -797,7 +811,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.3, y: 0.3}
   m_EdgeRadius: 0
 --- !u!1 &1682442482
 GameObject:
@@ -811,8 +825,8 @@ GameObject:
   - component: {fileID: 1682442484}
   - component: {fileID: 1682442483}
   m_Layer: 0
-  m_Name: Circle
-  m_TagString: Untagged
+  m_Name: explosion
+  m_TagString: explosion
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -847,7 +861,7 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -922,7 +936,7 @@ Transform:
   m_GameObject: {fileID: 1682442482}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.43, y: 4.93, z: 0}
+  m_LocalPosition: {x: -0.000000029802322, y: 4.93, z: 0}
   m_LocalScale: {x: 9.4798, y: 9.2796, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1051,7 +1065,7 @@ Transform:
   m_GameObject: {fileID: 2122420146}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.28, y: -4.48, z: 0}
+  m_LocalPosition: {x: 4.01, y: -1.56, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children: []

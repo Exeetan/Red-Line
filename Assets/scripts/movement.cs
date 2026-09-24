@@ -1,21 +1,27 @@
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using System.Linq.Expressions;
+using System.Collections;
 public class movement : MonoBehaviour
 {
     Rigidbody2D rb;
     Animator an;
     SpriteRenderer sp;
+    BoxCollider2D bc;
     float speed = 5;
     bool dynamite = false;
+    int lives = 3;
     Transform inventorySlot;
     Vector2 prevInput = Vector3.one;
+    [SerializeField] private monster m;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         sp = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
         an = GetComponent<Animator>();
+        bc = GetComponent<BoxCollider2D>();
         inventorySlot = transform.GetChild(0);
     }
 
@@ -98,6 +104,27 @@ public class movement : MonoBehaviour
     //}
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if(collision.gameObject.CompareTag("dynamite") && Input.GetKey(KeyCode.Space)) { Destroy(collision.gameObject); dynamite = true; inventorySlot.gameObject.SetActive(true); }   
+        if (collision.gameObject.CompareTag("dynamite") && Input.GetKey(KeyCode.Space)) { Destroy(collision.gameObject); dynamite = true; inventorySlot.gameObject.SetActive(true); }
+        else if (collision.gameObject.CompareTag("explosion") && Input.GetKey(KeyCode.Space) && dynamite) { m.hit(); dynamite = false; inventorySlot.gameObject.SetActive(false); }
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("hit")) hit();
+    }
+    void hit()
+    {
+        lives--;
+        if (lives == 0) Destroy(gameObject);
+        StartCoroutine(Immortality());
+    }
+
+    IEnumerator Immortality()
+    {
+        bc.enabled = false;
+        sp.color -= new Color(0, 0, 0, 0.5f);
+        
+        yield return new WaitForSeconds(1);
+        bc.enabled = true;
+        sp.color += new Color(0, 0, 0, 0.5f);
     }
 }

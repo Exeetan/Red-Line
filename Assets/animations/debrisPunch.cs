@@ -10,6 +10,9 @@ public class debrisPunch : MonoBehaviour
     {
         charging, wait, destroy
     }
+
+    cameraStuff c;
+
     states s = states.charging;
     private void Awake()
     {
@@ -26,6 +29,7 @@ public class debrisPunch : MonoBehaviour
     {
         sr = GetComponent<SpriteRenderer>();
         debris = GetComponentsInChildren<Rigidbody2D>(true);
+        c = Camera.main.GetComponent<cameraStuff>();
     }
 
     // Update is called once per frame
@@ -51,6 +55,8 @@ public class debrisPunch : MonoBehaviour
                         d.angularVelocity = Random.Range(0f, 360f);
                     }
 
+
+                    StartCoroutine(c.cameraShake());
                     s = states.wait;
                 }
                 break;
