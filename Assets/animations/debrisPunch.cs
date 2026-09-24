@@ -42,11 +42,10 @@ public class debrisPunch : MonoBehaviour
         {
             case states.charging:
                 if (sr.color.a < 0.5f) sr.color += new Color(0, 0, 0, 0.5f * Time.deltaTime);
-                if (t > 2) 
+                if (t > 1) 
                 {
-                    t -= 2;
+                    t -= 1;
 
-                    sr.color = Color.white;
                     GetComponent<CircleCollider2D>().enabled = true;
                     float a = Random.Range(0, Mathf.PI / 3);
                     foreach(Rigidbody2D d in debris)
@@ -63,7 +62,8 @@ public class debrisPunch : MonoBehaviour
                 }
                 break;
             case states.wait:
-                if (t > 1) s = states.destroy;
+                if (sr.color.a > 0) sr.color -= new Color(0, 0, 0, Time.deltaTime);
+                if (t > 2) s = states.destroy;
                 break;
             case states.destroy:
                 Destroy(gameObject);

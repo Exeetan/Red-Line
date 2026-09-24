@@ -10,6 +10,7 @@ public class movement : MonoBehaviour
     SpriteRenderer sp;
     BoxCollider2D bc;
     [SerializeField] private monster m;
+    cameraStuff c;
     float speed = 5;
     bool dynamite = false;
     int lives = 3;
@@ -23,6 +24,7 @@ public class movement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         an = GetComponent<Animator>();
         bc = GetComponent<BoxCollider2D>();
+        c = Camera.main.GetComponent<cameraStuff>();
         //c = Camera.main.GetComponent<cameraStuff>();
         inventorySlot = transform.GetChild(0);
     }
@@ -112,6 +114,7 @@ public class movement : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("hit")) hit();
+        if (collision.gameObject.name == "Line") StartCoroutine(c.transition(new Vector3(0, -12, -10)));
     }
     void hit()
     {

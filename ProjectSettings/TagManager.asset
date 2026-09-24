@@ -8,6 +8,7 @@ TagManager:
   - dynamite
   - hit
   - explosion
+  - player
   layers:
   - Default
   - TransparentFX
@@ -15,7 +16,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - player
   - 
   - 
   - 
