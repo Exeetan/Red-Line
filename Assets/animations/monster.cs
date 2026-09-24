@@ -7,11 +7,17 @@ public class monster : MonoBehaviour
     int lives = 5;
     SpriteRenderer sp;
     [SerializeField] private GameObject[] attacks;
+    [SerializeField] private GameObject explosionAnim;
+    [SerializeField] private GameObject explosionSound;
+
+
+    cameraStuff c;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         sp = GetComponent<SpriteRenderer>();
+        c = Camera.main.GetComponent<cameraStuff>();
     }
 
     // Update is called once per frame
@@ -25,6 +31,12 @@ public class monster : MonoBehaviour
     {
         lives--;
         if (lives == 0) Destroy(gameObject);
+        Instantiate(explosionAnim, transform.position + new Vector3(Random.Range(-2,2), Random.Range(- 1,2)), Quaternion.identity);
+        Instantiate(explosionAnim, transform.position + new Vector3(Random.Range(-2,2), Random.Range(- 1,2)), Quaternion.identity);
+        Instantiate(explosionSound);
+
+        StartCoroutine(c.cameraShake());
+        
         StartCoroutine(Immortality());
     }
     IEnumerator Immortality()

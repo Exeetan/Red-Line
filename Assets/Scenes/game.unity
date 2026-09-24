@@ -227,6 +227,8 @@ MonoBehaviour:
   attacks:
   - {fileID: 5131804475835241498, guid: 144a04c6aa91e3a4696e9d9dfda56a6e, type: 3}
   - {fileID: 8298731105741757398, guid: 52c4128712450a643b7558bcbc9ab382, type: 3}
+  explosionAnim: {fileID: 4160454682546323733, guid: e292e3a2608026549b434eda5d92dca4, type: 3}
+  explosionSound: {fileID: 1164177997676585103, guid: dda1282f10066784a96909650ae1fc87, type: 3}
 --- !u!1 &955123215
 GameObject:
   m_ObjectHideFlags: 0
@@ -293,7 +295,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 2
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 3893735233538376800, guid: 606062d24ca427f489671fada4fe8647, type: 3}
+  m_Sprite: {fileID: -344291916510584010, guid: 140e9a84862bc2648aebbf4bd2427798, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

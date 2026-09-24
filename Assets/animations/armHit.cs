@@ -10,7 +10,8 @@ public class armHit : MonoBehaviour
     states s = states.charging;
     GameObject warning;
     SpriteRenderer wsr;
-    cameraStuff c;
+    [SerializeField] private GameObject Sound;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
     private void Awake()
@@ -21,7 +22,6 @@ public class armHit : MonoBehaviour
     {
         warning = transform.GetChild(0).gameObject;
         wsr = warning.GetComponent<SpriteRenderer>();
-        c = Camera.main.GetComponent<cameraStuff>();
         //wsr.color = new Color(1, 0, 0, 0);
     }
 
@@ -33,7 +33,7 @@ public class armHit : MonoBehaviour
         {
             case states.charging:
                 if(wsr.color.a < 0.5f) wsr.color += new Color(0, 0, 0, 0.5f * Time.deltaTime);
-                if(t > 1) { t -= 1; s = states.hit; Destroy(warning); /*StartCoroutine(c.cameraShake());*/ }
+                if(t > 1) { t -= 1; s = states.hit; Destroy(warning); Instantiate(Sound); }
                 break;
             case states.hit:
                 if (transform.position.y > -2) transform.position -= 30 * Time.deltaTime * Vector3.up;

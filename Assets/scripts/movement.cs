@@ -9,12 +9,13 @@ public class movement : MonoBehaviour
     Animator an;
     SpriteRenderer sp;
     BoxCollider2D bc;
+    [SerializeField] private monster m;
     float speed = 5;
     bool dynamite = false;
     int lives = 3;
     Transform inventorySlot;
     Vector2 prevInput = Vector3.one;
-    [SerializeField] private monster m;
+    //cameraStuff c;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -22,6 +23,7 @@ public class movement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         an = GetComponent<Animator>();
         bc = GetComponent<BoxCollider2D>();
+        //c = Camera.main.GetComponent<cameraStuff>();
         inventorySlot = transform.GetChild(0);
     }
 

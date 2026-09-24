@@ -6,6 +6,8 @@ public class debrisPunch : MonoBehaviour
     float t = 0;
     SpriteRenderer sr;
     Rigidbody2D[] debris;
+    [SerializeField] private GameObject Sound;
+
     enum states
     {
         charging, wait, destroy
@@ -55,7 +57,7 @@ public class debrisPunch : MonoBehaviour
                         d.angularVelocity = Random.Range(0f, 360f);
                     }
 
-
+                    Instantiate(Sound);
                     StartCoroutine(c.cameraShake());
                     s = states.wait;
                 }
