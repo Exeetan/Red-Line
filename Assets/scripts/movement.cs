@@ -15,6 +15,7 @@ public class movement : MonoBehaviour
     bool dynamite = false;
     int lives = 3;
     Transform inventorySlot;
+    [SerializeField] private SpriteRenderer hitBG;
     Vector2 prevInput = Vector3.one;
     //cameraStuff c;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -27,12 +28,12 @@ public class movement : MonoBehaviour
         c = Camera.main.GetComponent<cameraStuff>();
         //c = Camera.main.GetComponent<cameraStuff>();
         inventorySlot = transform.GetChild(0);
-        ciao(3);
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (hitBG.color.a > 0) hitBG.color -= new Color(0, 0, 0,2* Time.deltaTime);
         //handleInput();
         Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
         if(input != prevInput)
@@ -118,16 +119,11 @@ public class movement : MonoBehaviour
         if (collision.gameObject.name == "Line") StartCoroutine(c.transition(new Vector3(0, -12, -10)));
     }
 
-
-    int ciao(int a)
-    {
-        return a + 1;
-    }
-
     void hit()
     {
         lives--;
         if (lives == 0) Destroy(gameObject);
+        hitBG.color += new Color(0, 0, 0, 0.5f);
         StartCoroutine(Immortality());
     }
 

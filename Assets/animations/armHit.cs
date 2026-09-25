@@ -1,7 +1,11 @@
 using UnityEngine;
-
+using System.Collections.Generic;
+using UnityEngine.SceneManagement;
+using System.Linq.Expressions;
+using System.Collections;
 public class armHit : MonoBehaviour
 {
+    public static bool doing = false;
     float t = 0;
     enum states
     {
@@ -17,13 +21,15 @@ public class armHit : MonoBehaviour
 
     private void Awake()
     {
+        doing = true;
         transform.position = new Vector3(Random.Range(-7.5f, 7.5f), 7.5f, 0);
         m = GameObject.FindGameObjectWithTag("monster").transform;
-        m.position = transform.position + 4.8f * Vector3.right;
+        //m.position = transform.position + 4.8f * Vector3.right;
     }
     void Start()
     {
-        m.GetChild(0).GetComponent<Animator>().Play("armHitAnim",0);
+        m.GetChild(0).GetComponent<Animator>().speed = 1;
+        m.GetChild(0).GetComponent<Animator>().Play("armHitAnim",0,0f);
         warning = transform.GetChild(0).gameObject;
         wsr = warning.GetComponent<SpriteRenderer>();
 
@@ -49,10 +55,13 @@ public class armHit : MonoBehaviour
                 if(t > 1) { t -= 1; s = states.retire; }
                 break;
             case states.retire:
+                m.GetChild(0).GetComponent<Animator>().StartPlayback();
+                m.GetChild(0).GetComponent<Animator>().speed = -1;
                 if (transform.position.y < 8) transform.position += 20 * Time.deltaTime * Vector3.up;
                 else s = states.destroy;
                 break;
             case states.destroy:
+                doing = false;
                 Destroy(gameObject);
                 break;
         }

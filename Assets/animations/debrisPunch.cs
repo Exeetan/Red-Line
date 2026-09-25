@@ -55,7 +55,6 @@ public class debrisPunch : MonoBehaviour
                         a += Mathf.PI / 3;
                         d.angularVelocity = Random.Range(0f, 360f);
                     }
-
                     Instantiate(Sound);
                     StartCoroutine(c.cameraShake());
                     s = states.wait;
@@ -63,6 +62,7 @@ public class debrisPunch : MonoBehaviour
                 break;
             case states.wait:
                 if (sr.color.a > 0) sr.color -= new Color(0, 0, 0, Time.deltaTime);
+                if(t > 0.75f && GetComponent<CircleCollider2D>().enabled) GetComponent<CircleCollider2D>().enabled = false;
                 if (t > 2) s = states.destroy;
                 break;
             case states.destroy:
