@@ -9,6 +9,7 @@ TagManager:
   - hit
   - explosion
   - player
+  - monster
   layers:
   - Default
   - TransparentFX

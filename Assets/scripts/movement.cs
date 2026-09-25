@@ -27,6 +27,7 @@ public class movement : MonoBehaviour
         c = Camera.main.GetComponent<cameraStuff>();
         //c = Camera.main.GetComponent<cameraStuff>();
         inventorySlot = transform.GetChild(0);
+        ciao(3);
     }
 
     // Update is called once per frame
@@ -108,7 +109,7 @@ public class movement : MonoBehaviour
     //}
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("dynamite") && Input.GetKey(KeyCode.Space)) { Destroy(collision.gameObject); dynamite = true; inventorySlot.gameObject.SetActive(true); }
+        if (collision.gameObject.CompareTag("dynamite") && Input.GetKey(KeyCode.Space) && !dynamite) { Destroy(collision.gameObject); dynamite = true; inventorySlot.gameObject.SetActive(true); }
         else if (collision.gameObject.CompareTag("explosion") && Input.GetKey(KeyCode.Space) && dynamite) { m.hit(); dynamite = false; inventorySlot.gameObject.SetActive(false); }
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -116,6 +117,13 @@ public class movement : MonoBehaviour
         if (collision.gameObject.CompareTag("hit")) hit();
         if (collision.gameObject.name == "Line") StartCoroutine(c.transition(new Vector3(0, -12, -10)));
     }
+
+
+    int ciao(int a)
+    {
+        return a + 1;
+    }
+
     void hit()
     {
         lives--;
@@ -125,6 +133,7 @@ public class movement : MonoBehaviour
 
     IEnumerator Immortality()
     {
+        StartCoroutine(c.cameraShake());
         bc.enabled = false;
         sp.color -= new Color(0, 0, 0, 0.5f);
         

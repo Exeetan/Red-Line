@@ -11,17 +11,22 @@ public class armHit : MonoBehaviour
     GameObject warning;
     SpriteRenderer wsr;
     [SerializeField] private GameObject Sound;
+    public Transform m;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
     private void Awake()
     {
         transform.position = new Vector3(Random.Range(-7.5f, 7.5f), 7.5f, 0);
+        m = GameObject.FindGameObjectWithTag("monster").transform;
+        m.position = transform.position + 4.8f * Vector3.right;
     }
     void Start()
     {
+        m.GetChild(0).GetComponent<Animator>().Play("armHitAnim",0);
         warning = transform.GetChild(0).gameObject;
         wsr = warning.GetComponent<SpriteRenderer>();
+
         //wsr.color = new Color(1, 0, 0, 0);
     }
 
@@ -33,6 +38,7 @@ public class armHit : MonoBehaviour
         {
             case states.charging:
                 if(wsr.color.a < 0.5f) wsr.color += new Color(0, 0, 0, 0.5f * Time.deltaTime);
+                m.position = Vector3.Lerp(m.position, (transform.position.x+5f) * Vector3.right,t);
                 if(t > 1) { t -= 1; s = states.hit; Destroy(warning); Instantiate(Sound); }
                 break;
             case states.hit:

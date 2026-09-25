@@ -24,7 +24,7 @@ public class monster : MonoBehaviour
     void Update()
     {
         t += Time.deltaTime;
-        if(t > 2) { t -= 2; Instantiate(attacks[Random.Range(0,attacks.Length)]); Instantiate(attacks[Random.Range(0, attacks.Length)]); }
+        if(t > 2) { t -= 2; Instantiate(attacks[Random.Range(0,attacks.Length)]); }
     }
 
     public void hit()

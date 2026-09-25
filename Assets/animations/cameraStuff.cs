@@ -13,7 +13,6 @@ public class cameraStuff : MonoBehaviour
     private void Update()
     {
         float t = (p.transform.position.y+30) / 20;
-        Debug.Log(t);
         Camera.main.backgroundColor = new Color(Mathf.Lerp(1,0.31f,t), Mathf.Lerp(1,0.13f,t), Mathf.Lerp(1, 0.13f, t), 1);
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
