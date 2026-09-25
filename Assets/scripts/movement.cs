@@ -16,6 +16,7 @@ public class movement : MonoBehaviour
     int lives = 3;
     Transform inventorySlot;
     [SerializeField] private SpriteRenderer hitBG;
+
     Vector2 prevInput = Vector3.one;
     //cameraStuff c;
     // Start is called once before the first execution of Update after the MonoBehaviour is created

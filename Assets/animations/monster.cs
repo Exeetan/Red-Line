@@ -5,7 +5,7 @@ using UnityEngine;
 public class monster : MonoBehaviour
 {
     float t = 0;
-    int lives = 5;
+    int lives = 8;
     int abb = 0;
     SpriteRenderer sp;
     [SerializeField] private GameObject[] attacks;
@@ -26,20 +26,23 @@ public class monster : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        //if(!armHit.doing && transform.position != Vector3.zero) transform.position = Vector3.Lerp(transform.position, Vector3.zero,t);
         t += Time.deltaTime;
         if(t > 2) 
         {
             t -= 2;
             GameObject a = attacks[Random.Range(0, attacks.Length)];
             Instantiate(attacks[1]);
-            if(lives < 4 && lives > 1) Instantiate(attacks[1]);
-            if (lives < 2) t++;
+            if(lives < 7) Instantiate(attacks[1]);
+            if (lives < 4) t++;
             abb++;
             if (abb > 5 && GameObject.FindGameObjectsWithTag("dynamite").Length == 0) Instantiate(dynamite, new Vector3(Random.Range(-6.8f, 5.7f), Random.Range(0.5f, -5.2f), 0), Quaternion.identity);
             if(!bulletShot.doing)
             {
+                Debug.Log("AOHSD");
                 int p = Random.Range(0, 4);
-                if (p == 1) Instantiate(attacks[3]);
+                if (p == 1) Instantiate(attacks[2]);
             }
             if (!armHit.doing)
             {

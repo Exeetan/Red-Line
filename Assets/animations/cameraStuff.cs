@@ -8,7 +8,8 @@ public class cameraStuff : MonoBehaviour
     private void Start()
     {
         p = GameObject.FindGameObjectWithTag("player");
-        initPos = transform.position;
+        StartCoroutine(softRot());
+        initPos = transform.localPosition;
     }
     private void Update()
     {
@@ -23,7 +24,19 @@ public class cameraStuff : MonoBehaviour
         {
             t += Time.deltaTime;
 
-            transform.position = initPos + Mathf.Pow((1-t),2)*new Vector3(Random.Range(-0.2f,0.2f), Random.Range(-0.2f, 0.2f));
+            transform.localPosition = initPos + Mathf.Pow((1-t),2)*new Vector3(Random.Range(-0.2f,0.2f), Random.Range(-0.2f, 0.2f));
+
+            yield return new WaitForEndOfFrame();
+        }
+    }
+    public IEnumerator cameraSwing()
+    {
+        float t = 0;
+        while (t< 1)
+        {
+            t += Time.deltaTime;
+
+            transform.parent.position = -Mathf.Sin(t*Mathf.PI)* Vector3.up;
 
             yield return new WaitForEndOfFrame();
         }
