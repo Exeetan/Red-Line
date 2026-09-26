@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using System.Linq.Expressions;
 using System.Collections;
+using UnityEngine.TextCore.Text;
 public class armHit : MonoBehaviour
 {
     public static bool doing = false;
@@ -19,6 +20,7 @@ public class armHit : MonoBehaviour
     CircleCollider2D explosion;
     SpriteRenderer exsr;
     cameraStuff c;
+    Animator mA;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
@@ -27,13 +29,17 @@ public class armHit : MonoBehaviour
         doing = true;
         transform.position = new Vector3(Random.Range(-7.5f, 7.5f), 7.5f, 0);
         m = GameObject.FindGameObjectWithTag("monster").transform;
+        mA = m.GetChild(0).GetComponent<Animator>();
+
+        mA.enabled = true;
+        m.GetChild(0).GetComponent<monster>().reposT = 0;
         //m.position = transform.position + 4.8f * Vector3.right;
         c = Camera.main.GetComponent<cameraStuff>();
     }
     void Start()
     {
-        m.GetChild(0).GetComponent<Animator>().speed = 1;
-        m.GetChild(0).GetComponent<Animator>().Play("armHitAnim",0,0f);
+        mA.speed = 1;
+        mA.Play("armHitAnim",0,0f);
         warning = transform.GetChild(0).gameObject;
         wsr = warning.GetComponent<SpriteRenderer>();
         explosion = GameObject.FindGameObjectWithTag("explosion").GetComponent<CircleCollider2D>();
@@ -62,11 +68,13 @@ public class armHit : MonoBehaviour
                 if(t > 1) { t -= 1; s = states.retire; }
                 break;
             case states.retire:
-                exsr.color += new Color(0, 0, 0, 255* Time.deltaTime);
-                m.position = Vector3.Lerp(m.position, Vector3.zero, 2*t);
-                m.GetChild(0).GetComponent<Animator>().StartPlayback();
-                m.GetChild(0).GetComponent<Animator>().speed = -1;
-                if (t > 1) transform.position += 20 * Time.deltaTime * Vector3.up;
+                exsr.color += new Color(0, 0, 0, Time.deltaTime);
+                
+                if(t > 0.5f ) 
+                {
+                    if (mA.speed != -2) { mA.StartPlayback(); mA.speed = -2; }
+                }
+                if (t < 1) transform.position += 20 * Time.deltaTime * Vector3.up;
                 else s = states.destroy;
                 break;
             case states.destroy:

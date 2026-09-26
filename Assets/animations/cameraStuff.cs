@@ -1,12 +1,21 @@
 using System.Collections;
+using System.Reflection.Metadata;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class cameraStuff : MonoBehaviour
 {
     Vector3 initPos;
     GameObject p;
+    [SerializeField] private GameObject bg;
+    [SerializeField] private GameObject music;
+    [SerializeField] private GameObject closeDoor;
+    [SerializeField] private GameObject[] delete;
+    monster m;
     private void Start()
     {
+        m = GameObject.FindGameObjectWithTag("monster").transform.GetChild(0).GetComponent<monster>();
         p = GameObject.FindGameObjectWithTag("player");
         StartCoroutine(softRot());
         initPos = transform.localPosition;
@@ -54,13 +63,35 @@ public class cameraStuff : MonoBehaviour
     }
     public IEnumerator transition(Vector3 pos)
     {
-        Vector3 dir = pos - transform.position;
+        transform.parent.SetParent(null);
+        Vector3 dir = pos - transform.parent.position;
         dir.Normalize();
         dir *= Time.deltaTime;
-        while((transform.position - pos).sqrMagnitude > 0.1f) 
+        while((transform.parent.position - pos).sqrMagnitude > 0.0001f) 
         {
-            transform.position += dir;
+            bg.GetComponent<SpriteRenderer>().color += new Color(0,0,0, Time.deltaTime* 0.2f);
+            transform.parent.position += dir;
             yield return new WaitForEndOfFrame();
         }
+        transform.parent.position = Vector3.zero;
+
+
+        foreach (GameObject g in delete) Destroy(g);
+        m.enabled = true;
+        music.SetActive(true);
+        closeDoor.SetActive(true);
+    }
+
+    public IEnumerator followPlayer(UnityEngine.Transform p)
+    {
+        float t = 0;
+        while(t < 1)
+        {
+            t += Time.deltaTime;
+            transform.parent.position = Vector3.Lerp(transform.parent.position, p.position, t);
+            yield return new WaitForEndOfFrame();
+        }
+        transform.parent.SetParent(p);
+        transform.parent.localPosition = Vector3.zero;
     }
 }

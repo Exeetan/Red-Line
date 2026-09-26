@@ -12,8 +12,8 @@ public class movement : MonoBehaviour
     [SerializeField] private monster m;
     cameraStuff c;
     float speed = 5;
-    bool dynamite = false;
-    int lives = 3;
+    public bool dynamite = false;
+    public int lives = 3;
     Transform inventorySlot;
     [SerializeField] private SpriteRenderer hitBG;
 
@@ -51,32 +51,31 @@ public class movement : MonoBehaviour
                 {
                     an.SetInteger("state", 0);
                     inventorySlot.transform.localPosition = new Vector2(0.1f, -0.1f);
-                    inventorySlot.GetComponent<SpriteRenderer>().sortingOrder = 3;
+                    inventorySlot.GetComponent<SpriteRenderer>().sortingOrder = 6;
                 }
                 else if (input.y > 0.707f) 
                 {
                     an.SetInteger("state", 1);
                     inventorySlot.transform.localPosition = new Vector2(-0.1f, -0.1f);
-                    inventorySlot.GetComponent<SpriteRenderer>().sortingOrder = 1;
+                    inventorySlot.GetComponent<SpriteRenderer>().sortingOrder = 4;
                 }
                 else if (input.x > 0.707f)
                 {
                     an.SetInteger("state", 2);
                     sp.flipX = false;
                     inventorySlot.transform.localPosition = new Vector2(0.1f, -0.1f);
-                    inventorySlot.GetComponent<SpriteRenderer>().sortingOrder = 1;
+                    inventorySlot.GetComponent<SpriteRenderer>().sortingOrder = 4;
                 }
                 else if (input.x < -0.707f)
                 {
                     an.SetInteger("state", 2);
                     sp.flipX = true;
                     inventorySlot.transform.localPosition = new Vector2(-0.1f, -0.1f);
-                    inventorySlot.GetComponent<SpriteRenderer>().sortingOrder = 3;
+                    inventorySlot.GetComponent<SpriteRenderer>().sortingOrder = 6;
                 }
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.R)) SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         rb.linearVelocity = input*speed;
         prevInput = input;
     }
@@ -117,13 +116,14 @@ public class movement : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("hit")) hit();
-        if (collision.gameObject.name == "Line") StartCoroutine(c.transition(new Vector3(0, -12, -10)));
+        if (collision.gameObject.name == "Line") StartCoroutine(c.followPlayer(transform));
+        else if (collision.gameObject.name == "bostart") { StopAllCoroutines(); StartCoroutine(c.transition(Vector3.zero)); }
     }
 
     void hit()
     {
         lives--;
-        if (lives == 0) Destroy(gameObject);
+        if (lives == 0) { gameObject.SetActive(false); c.transform.GetChild(0).gameObject.SetActive(true); enabled = false; hitBG.color += new Color(0, 0, 0, 0.5f); ; return; }
         hitBG.color += new Color(0, 0, 0, 0.5f);
         StartCoroutine(Immortality());
     }

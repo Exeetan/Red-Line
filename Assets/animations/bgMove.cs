@@ -26,7 +26,6 @@ public class bgMove : MonoBehaviour
     {
         t -= 2 * Mathf.PI;
         c = c.Select(x => Random.Range(1f, 5f)).ToArray();
-        Debug.Log(c[0]);
 
     }
 }
