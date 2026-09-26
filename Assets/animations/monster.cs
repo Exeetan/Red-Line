@@ -54,9 +54,9 @@ public class monster : MonoBehaviour
             }
             if (!armHit.doing)
             {
-
-                int p = Random.Range(0, 4);
-                if (p == 1) Instantiate(attacks[0]);
+                Instantiate(attacks[0]);
+                //int p = Random.Range(0, 2);
+                //if (p == 1) Instantiate(attacks[0]);
             }
             //if (a.GetComponent<armAttack>() == null || a.GetComponent<armAttack>() != null && !armAttack.doing) Instantiate(attacks[Random.Range(0, attacks.Length)]);
         }

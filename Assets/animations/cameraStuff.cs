@@ -66,7 +66,7 @@ public class cameraStuff : MonoBehaviour
         transform.parent.SetParent(null);
         Vector3 dir = pos - transform.parent.position;
         dir.Normalize();
-        dir *= Time.deltaTime;
+        dir *= 5*Time.deltaTime;
         while((transform.parent.position - pos).sqrMagnitude > 0.0001f) 
         {
             bg.GetComponent<SpriteRenderer>().color += new Color(0,0,0, Time.deltaTime* 0.2f);
