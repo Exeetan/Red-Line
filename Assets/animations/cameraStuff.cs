@@ -2,6 +2,7 @@ using System.Collections;
 using System.Reflection.Metadata;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.SocialPlatforms;
 using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class cameraStuff : MonoBehaviour
@@ -64,13 +65,16 @@ public class cameraStuff : MonoBehaviour
     public IEnumerator transition(Vector3 pos)
     {
         transform.parent.SetParent(null);
-        Vector3 dir = pos - transform.parent.position;
-        dir.Normalize();
-        dir *= 5*Time.deltaTime;
-        while((transform.parent.position - pos).sqrMagnitude > 0.0001f) 
+        //Vector3 dir = pos - transform.parent.position;
+        Vector3 StartPos = transform.parent.position;
+        //dir.Normalize();
+        //dir *= 5*Time.deltaTime;
+        float t = 0;
+        while(t < 1) 
         {
-            bg.GetComponent<SpriteRenderer>().color += new Color(0,0,0, Time.deltaTime* 0.2f);
-            transform.parent.position += dir;
+            t += Time.deltaTime;
+            bg.GetComponent<SpriteRenderer>().color += new Color(0,0,0, t*0.2f);
+            transform.parent.position = Vector3.Lerp(StartPos, pos, t);
             yield return new WaitForEndOfFrame();
         }
         transform.parent.position = Vector3.zero;
